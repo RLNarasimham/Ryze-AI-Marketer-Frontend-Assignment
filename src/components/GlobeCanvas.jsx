@@ -3,49 +3,7 @@ import React, { useEffect, useRef } from "react";
 export default function GlobeCanvas() {
   const canvasRef = useRef(null);
   const animationRef = useRef({ rotation: 0, particleFloat: 0 });
-
-  const generateNodes = (count) => {
-    const nodes = [];
-    for (let i = 0; i < count; i++) {
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(Math.random() * 2 - 1);
-      nodes.push({
-        theta,
-        phi,
-        x: Math.sin(phi) * Math.cos(theta),
-        y: Math.cos(phi),
-        z: Math.sin(phi) * Math.sin(theta),
-        brightness: Math.random() * 0.5 + 0.5,
-      });
-    }
-    return nodes;
-  };
-
   const nodes = useRef(generateNodes(20)).current;
-
-  const generateOrbits = () => {
-    return [
-      {
-        angle: 0,
-        tilt: Math.PI * 0.3,
-        speed: 0.0003,
-        color: "rgba(139, 92, 246, 0.4)", 
-      },
-      {
-        angle: 0,
-        tilt: Math.PI * -0.25,
-        speed: -0.0005,
-        color: "rgba(6, 182, 212, 0.3)",
-      },
-      {
-        angle: 0,
-        tilt: Math.PI * 0.5,
-        speed: 0.0002,
-        color: "rgba(139, 92, 246, 0.2)",
-      },
-    ];
-  };
-
   const orbits = useRef(generateOrbits()).current;
 
   useEffect(() => {
@@ -53,46 +11,51 @@ export default function GlobeCanvas() {
     if (!canvas) return;
 
     const container = canvas.parentElement;
-    const width = container.offsetWidth;
-    const height = container.offsetHeight;
 
-    canvas.width = width;
-    canvas.height = height;
+    // Initial size setup
+    const updateSize = () => {
+      canvas.width = container.offsetWidth;
+      canvas.height = container.offsetHeight;
+    };
+    updateSize();
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     let animationId;
 
-    const minDimension = Math.min(width, height);
-    let radiusMultiplier;
-
-    if (width <= 425) {
-      radiusMultiplier = 0.30;
-    } else if (width <= 640) {
-      radiusMultiplier = 0.38;
-    } else if (width <= 768) {
-      radiusMultiplier = 0.40;
-    } else if (width <= 1024) {
-      radiusMultiplier = 0.42;
-    } else if (width <= 1440) {
-      radiusMultiplier = 0.45;
-    } else if (width <= 1920) {
-      radiusMultiplier = 0.48;
-    } else {
-      radiusMultiplier = 0.50;
-    }
-    const globeRadius = minDimension * radiusMultiplier;
-    const centerX = width / 2;
-    const centerY = height / 2;
-
     const drawGlobe = () => {
+      const width = canvas.width;
+      const height = canvas.height;
+      const centerX = width / 2;
+      const centerY = height / 2;
+      const minDimension = Math.min(width, height);
+
+      // Strict responsive multipliers to ensure NO cutoff
+      // Calculation: (Orbit Extent 1.4x) + (Particle Extent ~1.8x)
+      // Must fit in half width (0.5). 0.5 / 1.8 ≈ 0.27
+      let radiusMultiplier;
+
+      if (width <= 320) {
+        radiusMultiplier = 0.26; // iPhone SE (1st gen), very small Androids
+      } else if (width <= 375) {
+        radiusMultiplier = 0.28; // iPhone SE (2nd gen), standard mobile
+      } else if (width <= 425) {
+        radiusMultiplier = 0.30; // Large phones
+      } else {
+        radiusMultiplier = 0.34; // Tablets and Desktop
+      }
+
+      const globeRadius = minDimension * radiusMultiplier;
+
+      // Clear canvas
       ctx.fillStyle = "#000000";
       ctx.fillRect(0, 0, width, height);
 
       const rotation = animationRef.current.rotation;
       const particleFloat = animationRef.current.particleFloat;
 
+      // Draw globe sphere with gradient
       const globeGradient = ctx.createRadialGradient(
         centerX - globeRadius * 0.3,
         centerY - globeRadius * 0.3,
@@ -110,6 +73,7 @@ export default function GlobeCanvas() {
       ctx.arc(centerX, centerY, globeRadius, 0, Math.PI * 2);
       ctx.fill();
 
+      // Draw dotted world map pattern
       ctx.fillStyle = "rgba(96, 165, 250, 0.4)";
       const dotSize = globeRadius * 0.04;
       for (let lat = -80; lat <= 80; lat += 20) {
@@ -126,7 +90,6 @@ export default function GlobeCanvas() {
           const xRot = x * cosRot - z * sinRot;
           const zRot = x * sinRot + z * cosRot;
 
-
           if (zRot > -0.3) {
             const screenX = centerX + xRot * globeRadius;
             const screenY = centerY + y * globeRadius;
@@ -140,12 +103,12 @@ export default function GlobeCanvas() {
         }
       }
 
-
+      // Draw continents outline
       ctx.strokeStyle = "rgba(59, 130, 246, 0.3)";
       ctx.lineWidth = 1.5;
       drawContinents(ctx, centerX, centerY, globeRadius, rotation);
 
-
+      // Draw orbital rings
       orbits.forEach((orbit) => {
         orbit.angle += orbit.speed;
 
@@ -175,14 +138,13 @@ export default function GlobeCanvas() {
         ctx.stroke();
       });
 
+      // Draw network nodes
       nodes.forEach((node) => {
-
         const cosRot = Math.cos(rotation);
         const sinRot = Math.sin(rotation);
         const xRot = node.x * cosRot - node.z * sinRot;
         const zRot = node.x * sinRot + node.z * cosRot;
         const yRot = node.y;
-
 
         if (zRot > -0.2) {
           const screenX = centerX + xRot * globeRadius;
@@ -212,17 +174,14 @@ export default function GlobeCanvas() {
           ctx.arc(screenX, screenY, 12, 0, Math.PI * 2);
           ctx.fill();
 
-
           ctx.fillStyle = `rgba(255, 255, 255, ${brightness})`;
           ctx.beginPath();
           ctx.arc(screenX, screenY, 3.5, 0, Math.PI * 2);
           ctx.fill();
 
-
           const pulsePhase = (particleFloat * 0.003 + node.brightness) % 1;
           const ringRadius = 8 + pulsePhase * 6;
-          ctx.strokeStyle = `rgba(6, 182, 212, ${brightness * (1 - pulsePhase) * 0.5
-            })`;
+          ctx.strokeStyle = `rgba(6, 182, 212, ${brightness * (1 - pulsePhase) * 0.5})`;
           ctx.lineWidth = 1.5;
           ctx.beginPath();
           ctx.arc(screenX, screenY, ringRadius, 0, Math.PI * 2);
@@ -230,14 +189,20 @@ export default function GlobeCanvas() {
         }
       });
 
-
+      // Draw floating particles - RESPONSIVE POSITIONING
       for (let i = 0; i < 15; i++) {
         const angle =
           ((i / 15) * Math.PI * 2 + particleFloat * 0.001) % (Math.PI * 2);
-        const distance = 200 + Math.sin(particleFloat * 0.0005 + i) * 50;
+
+        // Dynamic distance based on globe radius instead of fixed pixels
+        const baseDistance = globeRadius * 1.5;
+        const variation = globeRadius * 0.3;
+        const distance = baseDistance + Math.sin(particleFloat * 0.0005 + i) * variation;
+
+        // Keep vertical float roughly within bounds
+        const y = (Math.sin(particleFloat * 0.0003 + i) - 0.5) * globeRadius * 1.2;
+
         const x = Math.cos(angle) * distance;
-        const y = (Math.sin(particleFloat * 0.0003 + i) - 0.5) * height * 0.3;
-        const z = Math.sin(angle) * distance;
 
         const brightness = Math.max(
           0.2,
@@ -251,7 +216,6 @@ export default function GlobeCanvas() {
         ctx.fill();
       }
 
-
       animationRef.current.rotation += 0.0008;
       animationRef.current.particleFloat += 1;
 
@@ -261,10 +225,7 @@ export default function GlobeCanvas() {
     drawGlobe();
 
     const handleResize = () => {
-      const newWidth = container.offsetWidth;
-      const newHeight = container.offsetHeight;
-      canvas.width = newWidth;
-      canvas.height = newHeight;
+      updateSize();
     };
 
     window.addEventListener("resize", handleResize);
@@ -279,12 +240,52 @@ export default function GlobeCanvas() {
     <div className="w-full h-full rounded-2xl overflow-hidden bg-black/40 backdrop-blur-sm">
       <canvas
         ref={canvasRef}
-        className="w-full h-full display-block"
-        style={{ display: "block" }}
+        className="w-full h-full block"
       />
     </div>
   );
 }
+
+// Helper functions moved outside component
+const generateNodes = (count) => {
+  const nodes = [];
+  for (let i = 0; i < count; i++) {
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos(Math.random() * 2 - 1);
+    nodes.push({
+      theta,
+      phi,
+      x: Math.sin(phi) * Math.cos(theta),
+      y: Math.cos(phi),
+      z: Math.sin(phi) * Math.sin(theta),
+      brightness: Math.random() * 0.5 + 0.5,
+    });
+  }
+  return nodes;
+};
+
+const generateOrbits = () => {
+  return [
+    {
+      angle: 0,
+      tilt: Math.PI * 0.3,
+      speed: 0.0003,
+      color: "rgba(139, 92, 246, 0.4)",
+    },
+    {
+      angle: 0,
+      tilt: Math.PI * -0.25,
+      speed: -0.0005,
+      color: "rgba(6, 182, 212, 0.3)",
+    },
+    {
+      angle: 0,
+      tilt: Math.PI * 0.5,
+      speed: 0.0002,
+      color: "rgba(139, 92, 246, 0.2)",
+    },
+  ];
+};
 
 
 function drawContinents(ctx, centerX, centerY, radius, rotation) {
@@ -311,7 +312,7 @@ function drawContinents(ctx, centerX, centerY, radius, rotation) {
         [250, 210],
       ],
     },
-    
+
     {
       points: [
         [300, 100],
@@ -321,7 +322,7 @@ function drawContinents(ctx, centerX, centerY, radius, rotation) {
         [300, 120],
       ],
     },
-    
+
     {
       points: [
         [320, 140],
@@ -331,7 +332,7 @@ function drawContinents(ctx, centerX, centerY, radius, rotation) {
         [310, 170],
       ],
     },
-    
+
     {
       points: [
         [340, 100],
@@ -348,7 +349,7 @@ function drawContinents(ctx, centerX, centerY, radius, rotation) {
     ctx.beginPath();
     let first = true;
     continent.points.forEach((point) => {
-      
+
       const lon = (point[0] - 200) * 1.8;
       const lat = (point[1] - 160) * 1.8;
 
@@ -359,14 +360,14 @@ function drawContinents(ctx, centerX, centerY, radius, rotation) {
       let y = Math.cos(phi);
       let z = Math.sin(phi) * Math.sin(theta);
 
-      
+
       const cosRot = Math.cos(rotation);
       const sinRot = Math.sin(rotation);
       const xRot = x * cosRot - z * sinRot;
       const yRot = y;
       const zRot = x * sinRot + z * cosRot;
 
-      
+
       if (zRot > -0.3) {
         const screenX = centerX + xRot * radius;
         const screenY = centerY + yRot * radius;
