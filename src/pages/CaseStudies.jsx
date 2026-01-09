@@ -6,7 +6,6 @@ const CaseCard = ({ image, client, subtitle, challenge, solution, result }) => {
 
   return (
     <article
-      //   className="relative w-full h-80 sm:h-96 cursor-pointer perspective"
       className="relative w-full h-80 sm:h-96 cursor-pointer perspective group"
       onClick={() => setIsFlipped(!isFlipped)}
     >
@@ -17,11 +16,9 @@ const CaseCard = ({ image, client, subtitle, challenge, solution, result }) => {
           transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
         }}
       >
-        {/* Front - Image */}
+
         <div
-          //   className="absolute w-full h-full rounded-2xl overflow-hidden glow-card p-6 sm:p-8 flex flex-col justify-between bg-[#050507]"
           className="absolute w-full h-full rounded-2xl overflow-hidden p-6 sm:p-8 flex flex-col justify-between bg-[#050507] border border-white/10 group-hover:border-white/30 transition-colors duration-300"
-          //   style={{ backfaceVisibility: "hidden" }}
           style={{
             backfaceVisibility: "hidden",
             boxShadow:
@@ -46,7 +43,6 @@ const CaseCard = ({ image, client, subtitle, challenge, solution, result }) => {
           </div>
         </div>
 
-        {/* Back - Content */}
         <div
           className="absolute w-full h-full rounded-2xl overflow-hidden p-6 sm:p-8 flex flex-col justify-between bg-[#050507] border border-white/10 group-hover:border-white/30 transition-colors duration-300"
           style={{

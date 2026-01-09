@@ -97,14 +97,14 @@ const FAQ = () => {
 
   return (
     <section className="relative py-16 sm:py-20 md:py-28 lg:py-32 xl:py-40 px-3 xs:px-4 sm:px-6 md:px-8 lg:px-10 bg-linear-to-b from-black via-purple-900/5 to-black overflow-hidden w-full">
-      {/* Animated Background Elements */}
+
       <div className="absolute inset-0 opacity-20 pointer-events-none overflow-hidden">
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-cyan-500 rounded-full mix-blend-screen blur-3xl animate-pulse"></div>
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-500 rounded-full mix-blend-screen blur-3xl animate-pulse delay-1000"></div>
       </div>
 
       <div className="hero-section-padding mx-auto relative z-10">
-        {/* Header */}
+
         <div
           ref={(el) => (elementsRef.current.header = el)}
           className={`text-center mb-12 sm:mb-16 md:mb-20 lg:mb-24 transform transition-all duration-1000 ${isVisible.header ? "opacity-100 scale-100" : "opacity-0 scale-95"
@@ -120,7 +120,7 @@ const FAQ = () => {
           </p>
         </div>
 
-        {/* FAQ Items */}
+
         <div className="flex flex-col gap-6 sm:gap-8 md:gap-10 lg:gap-12">
           {faqs.map((faq, index) => (
             <div
@@ -139,7 +139,7 @@ const FAQ = () => {
                   : "border-purple-500/30 bg-linear-to-br from-purple-900/20 to-purple-800/10 hover:border-purple-500/50"
                   }`}
               >
-                {/* Glow Effect */}
+
                 <div
                   className={`absolute inset-0 opacity-0 transition-opacity duration-500 pointer-events-none ${expandedId === faq.id
                     ? "opacity-100"
@@ -149,21 +149,21 @@ const FAQ = () => {
                   <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-linear-to-br from-purple-500/20 to-cyan-500/20"></div>
                 </div>
 
-                {/* Question Content */}
+
                 <div className="relative z-10 p-5 sm:p-6 md:p-7 lg:p-8 flex items-start gap-4 sm:gap-5 md:gap-6 lg:gap-7">
-                  {/* Icon */}
+
                   <div className="shrink-0 text-3xl xs:text-4xl sm:text-5xl md:text-6xl mt-0.5 sm:mt-1 group-hover:scale-110 transition-transform duration-300">
                     {faq.icon}
                   </div>
 
-                  {/* Question & Toggle */}
+
                   <div className="flex-1 min-w-0">
                     <h3 className="text-lg xs:text-xl sm:text-2xl md:text-2xl lg:text-2xl font-bold text-white pr-8 sm:pr-10 leading-snug">
                       {faq.question}
                     </h3>
                   </div>
 
-                  {/* Toggle Icon */}
+
                   <div className="shrink-0 mt-1 sm:mt-2">
                     <div
                       className={`w-6 xs:w-7 sm:w-8 md:w-9 h-6 xs:h-7 sm:h-8 md:h-9 rounded-full bg-linear-to-r from-purple-500 to-cyan-500 flex items-center justify-center transition-all duration-500 ${expandedId === faq.id
@@ -178,7 +178,7 @@ const FAQ = () => {
                   </div>
                 </div>
 
-                {/* Answer Content */}
+
                 <div
                   className={`relative z-10 overflow-hidden transition-all duration-500 ${expandedId === faq.id ? "max-h-96 sm:max-h-125" : "max-h-0"
                     }`}
@@ -194,7 +194,7 @@ const FAQ = () => {
           ))}
         </div>
 
-        {/* Contact CTA */}
+
         <div
           ref={(el) => (elementsRef.current.contact = el)}
           style={{ paddingBottom: "20px" }}
@@ -215,7 +215,7 @@ const FAQ = () => {
         </div>
       </div>
 
-      {/* Custom CSS for animations */}
+
       <style>{`
         @keyframes fadeIn {
           from {
@@ -232,7 +232,7 @@ const FAQ = () => {
           animation: fadeIn 0.5s ease-out forwards;
         }
 
-        /* Smooth max-height transitions */
+        
         @media (prefers-reduced-motion: no-preference) {
           div {
             transition-property: max-height;

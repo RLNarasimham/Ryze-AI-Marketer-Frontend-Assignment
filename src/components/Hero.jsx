@@ -4,7 +4,7 @@ import GlobeCanvas from "./GlobeCanvas";
 export default function Hero() {
   return (
     <section className="w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center pt-12 lg:pt-20 pb-8 hero-section-padding">
-      {/* Left Content */}
+
       <div className="animate-fade-in order-2 lg:order-1">
         <h1 className="hero-title text-4xl sm:text-5xl lg:text-6xl xl:text-7xl mb-6">
           <span className="gradient-text block">AI marketing platform.</span>
@@ -23,14 +23,14 @@ export default function Hero() {
             profitable scale using real‑time AI insights.
           </p>
 
-          {/* Gradient line */}
+
           <div
             className="under-hr mb-8"
             aria-hidden="true"
             style={{ marginTop: 20, marginBottom: 20 }}
           ></div>
 
-          {/* Get Started button with gradient border */}
+
           <button className="btn-gradient-border group gap-2">
             <span>Request a demo</span>
             <svg
@@ -51,7 +51,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Right Content - Globe Graphic */}
+
       <div className="flex justify-center lg:justify-end order-1 lg:order-2">
         <div
           className="w-full max-w-lg aspect-square relative"

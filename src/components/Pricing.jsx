@@ -108,14 +108,14 @@ const Pricing = () => {
 
   return (
     <section className="relative py-12 xs:py-14 sm:py-16 md:py-24 lg:py-32 xl:py-40 2xl:py-48 px-2 xs:px-3 sm:px-4 md:px-6 lg:px-8 xl:px-10 2xl:px-12 bg-gradient-to-b from-black via-purple-900/5 to-black overflow-hidden w-full">
-      {/* Animated Background Elements */}
+
       <div className="absolute inset-0 opacity-20 pointer-events-none overflow-hidden">
         <div className="absolute -top-32 xs:-top-40 sm:-top-48 -left-32 xs:-left-40 sm:-left-48 w-64 xs:w-80 sm:w-96 md:w-[500px] lg:w-[600px] h-64 xs:h-80 sm:h-96 md:h-[500px] lg:h-[600px] bg-purple-500 rounded-full mix-blend-screen blur-3xl animate-pulse"></div>
         <div className="absolute -bottom-32 xs:-bottom-40 sm:-bottom-48 -right-32 xs:-right-40 sm:-right-48 w-72 xs:w-96 sm:w-[500px] md:w-[550px] lg:w-[700px] h-72 xs:h-96 sm:h-[500px] md:h-[550px] lg:h-[700px] bg-cyan-500 rounded-full mix-blend-screen blur-3xl animate-pulse delay-1000"></div>
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header */}
+
         <div
           ref={(el) => (elementsRef.current.header = el)}
           className={`text-center mb-8 xs:mb-10 sm:mb-12 md:mb-16 lg:mb-20 xl:mb-24 2xl:mb-28 transform transition-all duration-1000 px-1 xs:px-2 ${isVisible.header ? "opacity-100 scale-100" : "opacity-0 scale-95"
@@ -132,7 +132,7 @@ const Pricing = () => {
           </p>
         </div>
 
-        {/* Billing Toggle */}
+
         <div
           ref={(el) => (elementsRef.current.toggle = el)}
           style={{ paddingTop: "25px", paddingBottom: "25px" }}
@@ -166,7 +166,7 @@ const Pricing = () => {
           </div>
         </div>
 
-        {/* Pricing Cards */}
+
         <div className="grid grid-cols-1 hero-section-padding sm:grid-cols-2 lg:grid-cols-3 gap-3 xs:gap-4 sm:gap-5 md:gap-6 lg:gap-7 xl:gap-8 2xl:gap-10 px-1 xs:px-2 sm:px-0">
           {plans.map((plan, index) => (
             <div
@@ -178,7 +178,6 @@ const Pricing = () => {
                 }`}
               style={{ transitionDelay: `${index * 150}ms` }}
             >
-              {/* Badge */}
               {plan.badge && (
                 <div className="absolute -top-3 xs:-top-4 left-1/2 transform -translate-x-1/2 z-20">
                   <div style={{ padding: "8px" }} className="px-2.5 xs:px-3 sm:px-4 py-0.5 xs:py-1 sm:py-1.5 bg-gradient-to-r from-purple-500 to-cyan-500 text-white text-[10px] xs:text-xs sm:text-sm font-bold rounded-full shadow-lg shadow-purple-500/50 whitespace-nowrap">
@@ -187,7 +186,6 @@ const Pricing = () => {
                 </div>
               )}
 
-              {/* Card */}
               <div
                 style={{ padding: "15px" }}
                 className={`relative h-full rounded-lg xs:rounded-xl sm:rounded-2xl border transition-all duration-500 overflow-hidden ${plan.color === "gradient"
@@ -197,7 +195,7 @@ const Pricing = () => {
                     : "border-purple-500/30 bg-gradient-to-br from-purple-900/20 to-purple-800/10"
                   } hover:border-purple-500/80 hover:shadow-2xl hover:shadow-purple-500/30 group-hover:scale-105 p-4 xs:p-5 sm:p-6 md:p-7 lg:p-8 xl:p-9 2xl:p-10`}
               >
-                {/* Glow Effect */}
+                
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
                   <div
                     className={`absolute inset-0 rounded-2xl ${plan.color === "gradient"
@@ -207,9 +205,9 @@ const Pricing = () => {
                   ></div>
                 </div>
 
-                {/* Content */}
+                  
                 <div className="relative z-10 space-y-3 xs:space-y-4 sm:space-y-4 md:space-y-5 lg:space-y-6">
-                  {/* Plan Name & Description */}
+                  
                   <div>
                     <h3 className="text-lg xs:text-xl sm:text-2xl md:text-2xl lg:text-3xl font-bold mb-1 xs:mb-2 leading-tight">
                       {plan.name}
@@ -219,7 +217,7 @@ const Pricing = () => {
                     </p>
                   </div>
 
-                  {/* Price */}
+                  
                   <div className="py-3 xs:py-4 sm:py-5 border-y border-purple-500/20">
                     <div className="flex items-baseline gap-0.5 xs:gap-1 sm:gap-2 flex-wrap">
                       <span className="text-3xl xs:text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
@@ -236,7 +234,7 @@ const Pricing = () => {
                     )}
                   </div>
 
-                  {/* CTA Button */}
+                  
                   <button
                     style={{ padding: "10px" }}
                     className={`w-[200px] py-2.5 xs:py-3 sm:py-3 md:py-3.5 lg:py-4 px-3 xs:px-4 sm:px-6 rounded-md xs:rounded-lg sm:rounded-lg font-bold text-xs xs:text-sm sm:text-base transition-all duration-300 transform hover:scale-105 active:scale-95 ${plan.buttonStyle === "gradient"
@@ -247,7 +245,7 @@ const Pricing = () => {
                     {plan.buttonText}
                   </button>
 
-                  {/* Features List */}
+
                   <div className="pt-1 xs:pt-2 sm:pt-3 space-y-2 xs:space-y-2.5 sm:space-y-3">
                     {plan.features.map((feature, idx) => (
                       <div
@@ -270,7 +268,7 @@ const Pricing = () => {
           ))}
         </div>
 
-        {/* FAQ / Support CTA */}
+
         <div
           ref={(el) => (elementsRef.current.support = el)}
           className={`mt-12 xs:mt-14 sm:mt-16 md:mt-20 lg:mt-24 xl:mt-28 2xl:mt-32 text-center transform transition-all duration-1000 px-1 xs:px-2 ${isVisible.support ? "opacity-100 scale-100" : "opacity-0 scale-95"
@@ -289,7 +287,7 @@ const Pricing = () => {
           </a>
         </div>
 
-        {/* Trust Footer */}
+
         <div
           ref={(el) => (elementsRef.current.trust = el)}
           className={`mt-10 xs:mt-12 sm:mt-16 md:mt-20 lg:mt-24 xl:mt-28 2xl:mt-32 pt-6 xs:pt-8 sm:pt-10 md:pt-12 lg:pt-16 border-t border-purple-500/20 text-center transform transition-all duration-1000 px-1 xs:px-2 ${isVisible.trust

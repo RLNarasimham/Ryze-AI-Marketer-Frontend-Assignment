@@ -9,7 +9,6 @@ const FloatingBackground = ({
   const containerRef = useRef(null);
 
   useEffect(() => {
-    // Particle generation for enhanced visual effect
     if (variant === 'particles' && containerRef.current) {
       const particleCount = intensity === 'high' ? 30 : intensity === 'medium' ? 20 : 10;
 
@@ -30,13 +29,11 @@ const FloatingBackground = ({
 
         containerRef.current?.appendChild(particle);
 
-        // Clean up old particles
         setTimeout(() => {
           particle.remove();
         }, (duration + 5) * 1000);
       }
 
-      // Regenerate particles periodically
       const interval = setInterval(() => {
         if (containerRef.current) {
           const particle = document.createElement('div');

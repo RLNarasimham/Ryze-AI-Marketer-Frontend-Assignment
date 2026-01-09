@@ -11,7 +11,6 @@ export default class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    // Keep this lightweight; in production you can wire this to Sentry/LogRocket/etc.
     console.error('ErrorBoundary caught an error:', error, errorInfo)
   }
 

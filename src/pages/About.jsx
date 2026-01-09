@@ -34,9 +34,9 @@ const About = () => {
 
   return (
     <div className="w-full bg-black text-white overflow-hidden">
-      {/* Hero Section */}
+
       <section style={{ padding: "10px" }} className="hero-section-padding relative flex flex-col justify-center items-center px-3 xs:px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 py-16 sm:py-20 md:py-24 lg:py-28 overflow-hidden">
-        {/* Animated Background Gradients */}
+
         <div className="absolute inset-0 opacity-30 pointer-events-none">
           <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-screen blur-3xl animate-pulse"></div>
           <div className="absolute top-40 right-10 w-96 h-96 bg-cyan-500 rounded-full mix-blend-screen blur-3xl animate-pulse delay-1000"></div>
@@ -96,14 +96,14 @@ const About = () => {
         </div>
       </section>
 
-      {/* Story Section */}
+
       <section
         id="story"
         className="relative py-16 sm:py-20 md:py-28 lg:py-32 xl:py-40 px-3 xs:px-4 sm:px-6 md:px-8 lg:px-10 w-full"
       >
         <div className="max-w-6xl mx-auto">
           <div className="hero-section-padding grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 md:gap-14 lg:gap-16 xl:gap-20 items-center">
-            {/* Text Column */}
+
             <div className="space-y-6 sm:space-y-8 md:space-y-9 lg:space-y-10">
               <div
                 ref={(el) => (elementsRef.current.story1 = el)}
@@ -158,7 +158,7 @@ const About = () => {
               </div>
             </div>
 
-            {/* Image Column */}
+
             <div className="space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-8">
               <div
                 ref={(el) => (elementsRef.current.img1 = el)}
@@ -179,7 +179,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* How Ryze Works Section */}
+
       <section className="relative py-16 sm:py-20 md:py-28 lg:py-32 xl:py-40 px-3 xs:px-4 sm:px-6 md:px-8 lg:px-10 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent w-full">
         <div className="max-w-6xl mx-auto">
           <div
@@ -265,7 +265,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* Platform Integrations */}
+
       <section className="relative py-16 sm:py-20 md:py-28 lg:py-32 xl:py-40 px-3 xs:px-4 sm:px-6 md:px-8 lg:px-10 w-full">
         <div className="max-w-6xl mx-auto">
           <div
@@ -312,7 +312,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* Results & Impact */}
+
       <section className="relative py-16 sm:py-20 md:py-28 lg:py-32 xl:py-40 px-3 xs:px-4 sm:px-6 md:px-8 lg:px-10 bg-gradient-to-r from-purple-900/20 to-cyan-900/20 w-full">
         <div className="max-w-6xl mx-auto">
           <div
@@ -387,7 +387,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* Why Ryze Is Different */}
+
       <section className="relative py-16 sm:py-20 md:py-28 lg:py-32 xl:py-40 px-3 xs:px-4 sm:px-6 md:px-8 lg:px-10 w-full">
         <div className="max-w-6xl mx-auto">
           <div
@@ -451,7 +451,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* Timeline Section */}
+
       <section className="relative py-16 sm:py-20 md:py-28 lg:py-32 xl:py-40 px-3 xs:px-4 sm:px-6 md:px-8 lg:px-10 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent w-full">
         <div className="max-w-4xl mx-auto">
           <div
@@ -525,7 +525,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* Contact Section */}
+
       <section className="relative py-16 sm:py-20 md:py-28 lg:py-32 xl:py-40 px-3 xs:px-4 sm:px-6 md:px-8 lg:px-10 border-t border-purple-500/20 w-full">
         <div className="mx-auto text-center">
           <div

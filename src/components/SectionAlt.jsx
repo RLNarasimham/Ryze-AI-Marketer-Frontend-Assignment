@@ -20,7 +20,6 @@ export default function SectionAlt({
             decoding="async"
             className="w-full h-full max-w-full max-h-full object-contain"
             style={{
-              // Ensure the image never exceeds the container and stays centered
               display: "block",
               margin: "0 auto",
             }}
@@ -59,12 +58,12 @@ export default function SectionAlt({
   return (
     <section className="w-full mx-auto px-6 sm:px-10 lg:px-16">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center py-12 sm:py-20 hero-section-padding" style={{ paddingTop: "20px", paddingBottom: "20px" }}>
-        {/* Image Container */}
+        
         <div className={imageLeft ? "order-1" : "order-1 lg:order-2"}>
           <div className="w-full h-auto">{image}</div>
         </div>
 
-        {/* Content Container */}
+        
         <div
           className={`${imageLeft ? "order-2" : "order-2 lg:order-1"
             } space-y-6 lg:space-y-8`}

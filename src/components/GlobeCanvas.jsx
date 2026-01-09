@@ -4,7 +4,6 @@ export default function GlobeCanvas() {
   const canvasRef = useRef(null);
   const animationRef = useRef({ rotation: 0, particleFloat: 0 });
 
-  // Generate random network nodes on globe surface
   const generateNodes = (count) => {
     const nodes = [];
     for (let i = 0; i < count; i++) {
@@ -24,26 +23,25 @@ export default function GlobeCanvas() {
 
   const nodes = useRef(generateNodes(20)).current;
 
-  // Generate orbital paths
   const generateOrbits = () => {
     return [
       {
         angle: 0,
         tilt: Math.PI * 0.3,
         speed: 0.0003,
-        color: "rgba(139, 92, 246, 0.4)", // Purple
+        color: "rgba(139, 92, 246, 0.4)", 
       },
       {
         angle: 0,
         tilt: Math.PI * -0.25,
         speed: -0.0005,
-        color: "rgba(6, 182, 212, 0.3)", // Cyan
+        color: "rgba(6, 182, 212, 0.3)",
       },
       {
         angle: 0,
         tilt: Math.PI * 0.5,
         speed: 0.0002,
-        color: "rgba(139, 92, 246, 0.2)", // Purple
+        color: "rgba(139, 92, 246, 0.2)",
       },
     ];
   };
@@ -66,38 +64,35 @@ export default function GlobeCanvas() {
 
     let animationId;
 
-    // Comprehensive responsive globe radius for all screen sizes
     const minDimension = Math.min(width, height);
     let radiusMultiplier;
 
     if (width <= 425) {
-      radiusMultiplier = 0.30; // Small mobile devices (≤425px) - reduced for full visibility
+      radiusMultiplier = 0.30;
     } else if (width <= 640) {
-      radiusMultiplier = 0.38; // Mobile devices (426-640px) - increased visibility
+      radiusMultiplier = 0.38;
     } else if (width <= 768) {
-      radiusMultiplier = 0.40; // Large mobile / small tablets
+      radiusMultiplier = 0.40;
     } else if (width <= 1024) {
-      radiusMultiplier = 0.42; // Tablets
+      radiusMultiplier = 0.42;
     } else if (width <= 1440) {
-      radiusMultiplier = 0.45; // Laptops / small desktops
+      radiusMultiplier = 0.45;
     } else if (width <= 1920) {
-      radiusMultiplier = 0.48; // Full HD desktops
+      radiusMultiplier = 0.48;
     } else {
-      radiusMultiplier = 0.50; // Large displays (2K, 4K)
+      radiusMultiplier = 0.50;
     }
     const globeRadius = minDimension * radiusMultiplier;
     const centerX = width / 2;
     const centerY = height / 2;
 
     const drawGlobe = () => {
-      // Clear canvas with dark background
       ctx.fillStyle = "#000000";
       ctx.fillRect(0, 0, width, height);
 
       const rotation = animationRef.current.rotation;
       const particleFloat = animationRef.current.particleFloat;
 
-      // Draw globe sphere with gradient
       const globeGradient = ctx.createRadialGradient(
         centerX - globeRadius * 0.3,
         centerY - globeRadius * 0.3,
@@ -106,16 +101,15 @@ export default function GlobeCanvas() {
         centerY,
         globeRadius * 1.2
       );
-      globeGradient.addColorStop(0, "rgba(59, 130, 246, 0.8)"); // Bright blue
-      globeGradient.addColorStop(0.5, "rgba(29, 78, 216, 0.9)"); // Deep blue
-      globeGradient.addColorStop(1, "rgba(15, 23, 42, 0.95)"); // Very dark
+      globeGradient.addColorStop(0, "rgba(59, 130, 246, 0.8)");
+      globeGradient.addColorStop(0.5, "rgba(29, 78, 216, 0.9)");
+      globeGradient.addColorStop(1, "rgba(15, 23, 42, 0.95)");
 
       ctx.fillStyle = globeGradient;
       ctx.beginPath();
       ctx.arc(centerX, centerY, globeRadius, 0, Math.PI * 2);
       ctx.fill();
 
-      // Draw dotted world map pattern
       ctx.fillStyle = "rgba(96, 165, 250, 0.4)";
       const dotSize = globeRadius * 0.04;
       for (let lat = -80; lat <= 80; lat += 20) {
@@ -127,13 +121,12 @@ export default function GlobeCanvas() {
           let y = Math.cos(phi);
           let z = Math.sin(phi) * Math.sin(theta);
 
-          // Apply rotation
           const cosRot = Math.cos(rotation);
           const sinRot = Math.sin(rotation);
           const xRot = x * cosRot - z * sinRot;
           const zRot = x * sinRot + z * cosRot;
 
-          // Only draw if facing camera (z > -0.3)
+
           if (zRot > -0.3) {
             const screenX = centerX + xRot * globeRadius;
             const screenY = centerY + y * globeRadius;
@@ -147,12 +140,12 @@ export default function GlobeCanvas() {
         }
       }
 
-      // Draw continents outline using simplified world map
+
       ctx.strokeStyle = "rgba(59, 130, 246, 0.3)";
       ctx.lineWidth = 1.5;
       drawContinents(ctx, centerX, centerY, globeRadius, rotation);
 
-      // Draw orbital rings
+
       orbits.forEach((orbit) => {
         orbit.angle += orbit.speed;
 
@@ -167,7 +160,6 @@ export default function GlobeCanvas() {
           let z = Math.sin(angle) * globeRadius * 1.4;
           const y = Math.sin(orbit.tilt) * globeRadius * 1.4;
 
-          // Apply main rotation
           const cosRot = Math.cos(rotation);
           const sinRot = Math.sin(rotation);
           const xRot = x * cosRot - z * sinRot;
@@ -183,22 +175,20 @@ export default function GlobeCanvas() {
         ctx.stroke();
       });
 
-      // Draw network nodes with glow
       nodes.forEach((node) => {
-        // Apply rotation to node
+
         const cosRot = Math.cos(rotation);
         const sinRot = Math.sin(rotation);
         const xRot = node.x * cosRot - node.z * sinRot;
         const zRot = node.x * sinRot + node.z * cosRot;
         const yRot = node.y;
 
-        // Only draw if facing camera
+
         if (zRot > -0.2) {
           const screenX = centerX + xRot * globeRadius;
           const screenY = centerY + yRot * globeRadius;
           const brightness = Math.max(0.4, (zRot + 1) / 1.5);
 
-          // Glow effect
           const glowGradient = ctx.createRadialGradient(
             screenX,
             screenY,
@@ -222,13 +212,13 @@ export default function GlobeCanvas() {
           ctx.arc(screenX, screenY, 12, 0, Math.PI * 2);
           ctx.fill();
 
-          // Core node
+
           ctx.fillStyle = `rgba(255, 255, 255, ${brightness})`;
           ctx.beginPath();
           ctx.arc(screenX, screenY, 3.5, 0, Math.PI * 2);
           ctx.fill();
 
-          // Pulsing ring
+
           const pulsePhase = (particleFloat * 0.003 + node.brightness) % 1;
           const ringRadius = 8 + pulsePhase * 6;
           ctx.strokeStyle = `rgba(6, 182, 212, ${brightness * (1 - pulsePhase) * 0.5
@@ -240,7 +230,7 @@ export default function GlobeCanvas() {
         }
       });
 
-      // Draw floating particles
+
       for (let i = 0; i < 15; i++) {
         const angle =
           ((i / 15) * Math.PI * 2 + particleFloat * 0.001) % (Math.PI * 2);
@@ -261,7 +251,7 @@ export default function GlobeCanvas() {
         ctx.fill();
       }
 
-      // Update animations
+
       animationRef.current.rotation += 0.0008;
       animationRef.current.particleFloat += 1;
 
@@ -296,10 +286,10 @@ export default function GlobeCanvas() {
   );
 }
 
-// Simplified world continents drawing
+
 function drawContinents(ctx, centerX, centerY, radius, rotation) {
   const continents = [
-    // North America outline (simplified)
+
     {
       points: [
         [250, 120],
@@ -310,7 +300,7 @@ function drawContinents(ctx, centerX, centerY, radius, rotation) {
         [240, 140],
       ],
     },
-    // South America outline (simplified)
+
     {
       points: [
         [260, 200],
@@ -321,7 +311,7 @@ function drawContinents(ctx, centerX, centerY, radius, rotation) {
         [250, 210],
       ],
     },
-    // Europe outline (simplified)
+    
     {
       points: [
         [300, 100],
@@ -331,7 +321,7 @@ function drawContinents(ctx, centerX, centerY, radius, rotation) {
         [300, 120],
       ],
     },
-    // Africa outline (simplified)
+    
     {
       points: [
         [320, 140],
@@ -341,7 +331,7 @@ function drawContinents(ctx, centerX, centerY, radius, rotation) {
         [310, 170],
       ],
     },
-    // Asia outline (simplified)
+    
     {
       points: [
         [340, 100],
@@ -358,7 +348,7 @@ function drawContinents(ctx, centerX, centerY, radius, rotation) {
     ctx.beginPath();
     let first = true;
     continent.points.forEach((point) => {
-      // Normalize to world coordinates
+      
       const lon = (point[0] - 200) * 1.8;
       const lat = (point[1] - 160) * 1.8;
 
@@ -369,14 +359,14 @@ function drawContinents(ctx, centerX, centerY, radius, rotation) {
       let y = Math.cos(phi);
       let z = Math.sin(phi) * Math.sin(theta);
 
-      // Apply rotation
+      
       const cosRot = Math.cos(rotation);
       const sinRot = Math.sin(rotation);
       const xRot = x * cosRot - z * sinRot;
       const yRot = y;
       const zRot = x * sinRot + z * cosRot;
 
-      // Only draw if facing camera
+      
       if (zRot > -0.3) {
         const screenX = centerX + xRot * radius;
         const screenY = centerY + yRot * radius;

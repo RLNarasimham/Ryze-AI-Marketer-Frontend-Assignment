@@ -41,19 +41,17 @@
   color: #888;
 }
 
-/* Responsive section gap utility (matches Tailwind mt-20 / sm:mt-28 / lg:mt-32)
-   Use the class `section-gap` on section wrappers to create consistent vertical spacing.
-*/
+
 .section-gap {
-  margin-top: 5rem; /* 80px */
+  margin-top: 5rem; 
 }
 @media (min-width: 640px) {
   .section-gap {
-    margin-top: 7rem; /* 112px */
+    margin-top: 7rem; 
   }
 }
 @media (min-width: 1024px) {
   .section-gap {
-    margin-top: 9rem; /* 144px */
+    margin-top: 9rem;
   }
 }

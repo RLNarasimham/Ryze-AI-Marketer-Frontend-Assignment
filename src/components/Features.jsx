@@ -8,31 +8,6 @@ const Feature = ({ title, desc }) => (
   </div>
 );
 
-// export default function Features() {
-//     const items = [
-//         { title: 'Real-time Insights', desc: 'Signals and suggestions in real time.' },
-//         { title: 'Audience Targeting', desc: 'Scale to the right audience segments.' },
-//         { title: 'Creative Optimization', desc: 'Improve messaging and creative assets.' }
-//     ]
-
-//     return (
-//         <div className="max-full mx-auto px-4 sm:px-6 lg:px-8">
-//             <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 sm:mt-24">
-//                 {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-//                     {items.map((item, idx) => (
-//                         <Feature key={idx} {...item} />
-//                     ))}
-//                 </div> */}
-//                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 w-full hero-section-padding">
-//                     {items.map((item, idx) => (
-//                         <Feature key={idx} {...item} />
-//                     ))}
-//                 </div>
-//             </section>
-//         </div>
-//     )
-// }
-
 export default function Features() {
   const items = [
     {

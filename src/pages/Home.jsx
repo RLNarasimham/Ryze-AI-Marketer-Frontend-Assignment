@@ -6,7 +6,7 @@ import SectionAlt from "../components/SectionAlt";
 import TestimonialCard from "../components/TestimonialCard";
 import img1 from "../assets/images/First Image.png";
 
-// CDN fallback placeholders for the other sections (replace with local images for production)
+
 const img2 =
   "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=80";
 const img3 =

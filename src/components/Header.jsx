@@ -34,7 +34,7 @@ export default function Header() {
   return (
     <header className="w-full py-4 sticky top-0 z-50 header-blur border-b border-white/5 header-section-padding" style={{ background: "rgba(230, 235, 240, 0.15)" }}>
       <div className="mx-auto flex items-center justify-between gap-4" style={{ padding: "15px 5px" }}>
-        {/* Logo */}
+
         <Link
           to="/"
           className="flex items-center gap-2 sm:gap-3 flex-shrink-0 focus-ring rounded-md"
@@ -47,7 +47,7 @@ export default function Header() {
           </span>
         </Link>
 
-        {/* Navigation */}
+        
         <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-sm md:text-base lg:text-lg xl:text-xl text-white/80">
           {navItems.map((item, idx) =>
             item.href && item.href !== "#" ? (
@@ -101,9 +101,9 @@ export default function Header() {
             )
           )}
         </nav>
-        {/* Right side: Search, Sign in, Sign up */}
+        
         <div className="flex items-center gap-3 sm:gap-4 flex-shrink-0">
-          {/* Search bar */}
+          
           <button
             type="button"
             style={{ paddingLeft: "10px", paddingRight: "10px", paddingTop: "5px", paddingBottom: "5px" }}
@@ -113,7 +113,7 @@ export default function Header() {
             <span>Search Ryze....</span>
           </button>
 
-          {/* Sign in button */}
+          
           <button
             type="button"
             style={{ paddingLeft: "10px", paddingRight: "10px" }}
@@ -122,7 +122,7 @@ export default function Header() {
             Login
           </button>
 
-          {/* Sign up button */}
+          
           <button
             type="button"
             className="text-md sm:text-md cursor-pointer lg:text-lg xl:text-xl px-5 sm:px-6 rounded-4xl lg:px-8 xl:px-10 py-2.5 sm:py-3 lg:py-3.5 xl:py-4 gradient-bg border-none text-black font-semibold hover:opacity-90 transition-all duration-200 focus-ring min-touch hidden lg:inline-block"
@@ -131,7 +131,7 @@ export default function Header() {
             Sign Up
           </button>
 
-          {/* Mobile menu button */}
+          
           <button
             type="button"
             style={{
@@ -181,7 +181,7 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile drawer + overlay */}
+      
       {isMenuOpen && (
         <div className="lg:hidden">
           <button
@@ -200,10 +200,8 @@ export default function Header() {
             style={{
               paddingLeft: "max(1.25rem, env(safe-area-inset-left))",
               paddingRight: "max(1.25rem, env(safe-area-inset-right))",
-              // background: "linear-gradient(135deg, rgba(15, 15, 25, 0.98) 0%, rgba(30, 20, 50, 0.95) 100%)",
               backdropFilter: "blur(20px)",
               WebkitBackdropFilter: "blur(20px)",
-              // boxShadow: "0 0 40px rgba(124, 58, 237, 0.2), 0 20px 60px rgba(0, 0, 0, 0.5)",
             }}
           >
             <div className="flex items-center justify-between">
