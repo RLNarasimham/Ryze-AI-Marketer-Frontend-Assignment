@@ -12,7 +12,7 @@ export default function GlobeCanvas() {
 
     const container = canvas.parentElement;
 
-    // Initial size setup
+
     const updateSize = () => {
       canvas.width = container.offsetWidth;
       canvas.height = container.offsetHeight;
@@ -31,31 +31,29 @@ export default function GlobeCanvas() {
       const centerY = height / 2;
       const minDimension = Math.min(width, height);
 
-      // Strict responsive multipliers to ensure NO cutoff
-      // Calculation: (Orbit Extent 1.4x) + (Particle Extent ~1.8x)
-      // Must fit in half width (0.5). 0.5 / 1.8 ≈ 0.27
+
       let radiusMultiplier;
 
       if (width <= 320) {
-        radiusMultiplier = 0.26; // iPhone SE (1st gen), very small Androids
+        radiusMultiplier = 0.26;
       } else if (width <= 375) {
-        radiusMultiplier = 0.28; // iPhone SE (2nd gen), standard mobile
+        radiusMultiplier = 0.28;
       } else if (width <= 425) {
-        radiusMultiplier = 0.30; // Large phones
+        radiusMultiplier = 0.30;
       } else {
-        radiusMultiplier = 0.34; // Tablets and Desktop
+        radiusMultiplier = 0.34;
       }
 
       const globeRadius = minDimension * radiusMultiplier;
 
-      // Clear canvas
+
       ctx.fillStyle = "#000000";
       ctx.fillRect(0, 0, width, height);
 
       const rotation = animationRef.current.rotation;
       const particleFloat = animationRef.current.particleFloat;
 
-      // Draw globe sphere with gradient
+
       const globeGradient = ctx.createRadialGradient(
         centerX - globeRadius * 0.3,
         centerY - globeRadius * 0.3,
@@ -73,7 +71,7 @@ export default function GlobeCanvas() {
       ctx.arc(centerX, centerY, globeRadius, 0, Math.PI * 2);
       ctx.fill();
 
-      // Draw dotted world map pattern
+
       ctx.fillStyle = "rgba(96, 165, 250, 0.4)";
       const dotSize = globeRadius * 0.04;
       for (let lat = -80; lat <= 80; lat += 20) {
@@ -103,12 +101,12 @@ export default function GlobeCanvas() {
         }
       }
 
-      // Draw continents outline
+
       ctx.strokeStyle = "rgba(59, 130, 246, 0.3)";
       ctx.lineWidth = 1.5;
       drawContinents(ctx, centerX, centerY, globeRadius, rotation);
 
-      // Draw orbital rings
+
       orbits.forEach((orbit) => {
         orbit.angle += orbit.speed;
 
@@ -138,7 +136,7 @@ export default function GlobeCanvas() {
         ctx.stroke();
       });
 
-      // Draw network nodes
+
       nodes.forEach((node) => {
         const cosRot = Math.cos(rotation);
         const sinRot = Math.sin(rotation);
@@ -189,17 +187,17 @@ export default function GlobeCanvas() {
         }
       });
 
-      // Draw floating particles - RESPONSIVE POSITIONING
+
       for (let i = 0; i < 15; i++) {
         const angle =
           ((i / 15) * Math.PI * 2 + particleFloat * 0.001) % (Math.PI * 2);
 
-        // Dynamic distance based on globe radius instead of fixed pixels
+
         const baseDistance = globeRadius * 1.5;
         const variation = globeRadius * 0.3;
         const distance = baseDistance + Math.sin(particleFloat * 0.0005 + i) * variation;
 
-        // Keep vertical float roughly within bounds
+
         const y = (Math.sin(particleFloat * 0.0003 + i) - 0.5) * globeRadius * 1.2;
 
         const x = Math.cos(angle) * distance;
@@ -246,7 +244,6 @@ export default function GlobeCanvas() {
   );
 }
 
-// Helper functions moved outside component
 const generateNodes = (count) => {
   const nodes = [];
   for (let i = 0; i < count; i++) {
