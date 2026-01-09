@@ -5,7 +5,7 @@ import FAQ from "../components/FAQ";
 import SectionAlt from "../components/SectionAlt";
 import TestimonialCard from "../components/TestimonialCard";
 import img1 from "../assets/images/First Image.png";
-
+import homepageavatar from "../assets/images/Amaka Michael Image.jpg";
 
 const img2 =
   "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=80";
@@ -61,7 +61,7 @@ export default function Home() {
       </section >
 
       <section className="w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 mt-16 sm:mt-24 hero-section-padding" style={{ paddingBottom: "30px" }}>
-        <TestimonialCard />
+        <TestimonialCard image={homepageavatar} />
       </section>
 
       <FAQ />
