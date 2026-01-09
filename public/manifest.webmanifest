@@ -1,0 +1,19 @@
+{
+  "name": "Ryze - AI Marketer",
+  "short_name": "Ryze",
+  "description": "AI marketing platform for optimized reach and campaign performance.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#050507",
+  "theme_color": "#050507",
+  "icons": [
+    {
+      "src": "./vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
+
